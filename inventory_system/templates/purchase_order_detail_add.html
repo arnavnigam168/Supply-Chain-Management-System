@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="mb-4">Add Purchase Order Details</h1>
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <form method="post" class="row g-3">
+            <div class="col-12"><label class="form-label">Order *</label><select name="order_id" class="form-select" required><option value="">-- Select --</option>{% for o in orders %}<option value="{{ o.order_id }}">Order #{{ o.order_id }}</option>{% endfor %}</select></div>
+            <div class="col-12"><label class="form-label">Product</label><select name="product_id" class="form-select"><option value="">-- Select --</option>{% for p in products %}<option value="{{ p.product_id }}">{{ p.product_name }}</option>{% endfor %}</select></div>
+            <div class="col-md-6"><label class="form-label">Quantity Ordered</label><input name="quantity_ordered" type="number" min="1" class="form-control" value="1"></div>
+            <div class="col-md-6"><label class="form-label">Total Price</label><input name="total_price" type="number" min="0.01" step="0.01" class="form-control" value="1"></div>
+            <div class="col-12"><button type="submit" class="btn btn-primary">Save</button> <a href="{{ url_for('view_purchase_orders') }}" class="btn btn-secondary">Cancel</a></div>
+        </form>
+    </div>
+</div>
+{% endblock %}

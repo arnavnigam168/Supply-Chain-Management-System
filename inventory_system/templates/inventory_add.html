@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="mb-4">{{ 'Edit Inventory Record' if record else 'Add Inventory Record' }}</h1>
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        <form method="post" class="row g-3">
+            <div class="col-12">
+                <label class="form-label">Product *</label>
+                <select name="product_id" class="form-select" required>
+                    <option value="">-- Select --</option>
+                    {% for p in products %}
+                        <option value="{{ p.product_id }}" {% if record and record.product_id == p.product_id %}selected{% endif %}>{{ p.product_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6"><label class="form-label">Quantity Available</label><input name="quantity_available" type="number" min="0" class="form-control" value="{{ record.quantity_available if record else 0 }}"></div>
+            <div class="col-md-6"><label class="form-label">Reorder Level</label><input name="reorder_level" type="number" min="0" class="form-control" value="{{ record.reorder_level if record else 0 }}"></div>
+            <div class="col-12"><label class="form-label">Last Updated</label><input name="last_updated" type="date" class="form-control" value="{{ record.last_updated if record else '' }}"></div>
+            <div class="col-12"><button type="submit" class="btn btn-primary">Save</button> <a href="{{ url_for('view_inventory') }}" class="btn btn-secondary">Cancel</a></div>
+        </form>
+    </div>
+</div>
+{% endblock %}

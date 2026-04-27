@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Dashboard</h1>
+    <a href="{{ url_for('add_stock_transaction') }}" class="btn btn-primary">Add Stock Transaction</a>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h6 class="text-muted">Total Products</h6>
+                <h3>{{ total_products }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h6 class="text-muted">Total Suppliers</h6>
+                <h3>{{ total_suppliers }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h6 class="text-muted">Total Stock Available</h6>
+                <h3>{{ total_stock }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white">
+        <strong>Recent Stock Transactions</strong>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Product</th>
+                    <th>Type</th>
+                    <th>Quantity</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t, product_name in recent_transactions %}
+                <tr>
+                    <td>{{ t.transaction_id }}</td>
+                    <td>{{ product_name }}</td>
+                    <td><span class="badge bg-secondary">{{ t.transaction_type }}</span></td>
+                    <td>{{ t.quantity }}</td>
+                    <td>{{ t.transaction_date }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="5" class="text-center py-3">No transactions found.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
